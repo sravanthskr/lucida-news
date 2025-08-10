@@ -1,0 +1,71 @@
+Getting Started
+Protocol Compatibility
+Puch follows the core MCP specification with the following supported features:
+
+✓ Supported
+• Core protocol messages
+• Tool definitions and calls
+• Authentication (Bearer & OAuth)
+• Error handling
+✗ Not Supported
+• Videos extension
+• Resources extension
+• Prompts extension
+Quick Setup Guide
+1
+Prepare Your MCP Server
+Ensure your MCP server is publicly accessible and serving over HTTPS.
+
+2
+Connect from Puch Chat
+Use the /mcp connect command in any Puch conversation.
+
+3
+Verify Connection
+Puch will confirm successful connection and show available tools, or display error messages for troubleshooting.
+
+Command Reference
+Connect with Bearer Token
+/mcp connect <url> <bearer_token>
+Connect your MCP server with Puch AI. Your MCP server must have a validate tool that accepts the bearer token and returns the user's phone number in the format {country_code}{number} (e.g., 919876543210 for +91-9876543210). This validation is required for authentication.
+Example: /mcp connect https://mcp.example.com/mcp abc123token
+
+The validate tool must return the user's phone number when given the bearer token for authentication to succeed.
+Connect with OAuth
+/mcp connect <url>
+For servers supporting OAuth authentication. A browser window may open for consent and authentication.
+Use a hosted MCP server
+/mcp use <server_id>
+Connect to a hosted MCP server using its unique identifier. You can connect upto 5 MCP servers at a time.
+Remove a server
+/mcp remove <server_id>
+Remove a hosted MCP server from your list of connected servers.
+List connected servers
+/mcp list
+List all your MCP server configurations
+Disconnect Server
+/mcp deactivate
+Safely disconnect from all currently active MCP servers. This will remove access to all server-provided tools.
+Set Diagnostic Level
+/mcp diagnostics-level (error|warn|info|debug)
+Control the amount of diagnostic information you receive from MCP operations.
+Available levels: error, warn, info, debug
+Disable a server
+/mcp disable <server_id>
+Disable a specific MCP server. You will still be connected to the server but you won't be able to use its tools.
+This is mostly for debugging. You can re-enable the server later using the /mcp enable command.
+Enable a server
+/mcp enable <server_id>
+Enable a specific MCP server. By default, the server you connected to will be enabled.
+MCP Server Requirements
+Validate Tool
+Your MCP server must have a validate tool that returns the server owner's phone number in the format:
+
+{country_code}{number}
+Example: 919876543210 for +91-9876543210
+
+HTTPS Requirement
+All endpoints must be served over HTTPS for security. HTTP connections will be rejected.
+
+Prepare for production
+Before sharing your server, deploy it on a hosting platform such as Vercel, Cloudflare, or any other service. Ensure that the server is publicly accessible so others can connect to it.
